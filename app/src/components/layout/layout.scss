@@ -3,3 +3,11 @@
   margin: 0 auto;
   padding: 0;
 }
+
+.content {
+  margin-top: 4vw;
+  padding: 0 0.5vw 0 0.5vw;
+  display: grid;
+  grid-template-columns: 2.8fr 1.2fr;
+  grid-column-gap: 0.5vw;
+}
