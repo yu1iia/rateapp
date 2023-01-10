@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@900&family=Roboto:ital,wght@1,500&display=swap');
+
+nav {
+  text-align: center;
+  min-height: 5vw;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    min-height: 5vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    li {
+      display: inline-block;
+      align-self: center;
+      transition: all 0.2s ease-in;
+
+      a {
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1vw;
+        color: #223046;
+      }
+      a:hover {
+        color: black;
+      }
+    }
+  }
+}
