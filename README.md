@@ -1,2 +1,0 @@
-# rateapp
-react practice
