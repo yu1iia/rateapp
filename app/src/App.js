@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Layout from './components/layout/Layout';
+import { RateContext } from './context/RateContext';
 
 import CHF from './image/CHF.png';
 import CNY from './image/CNY.png';
@@ -59,7 +60,11 @@ class App extends React.Component {
   }
 
   render() {
-    return <Layout />;
+    return (
+      <RateContext.Provider value={{ state: this.state }}>
+        <Layout />
+      </RateContext.Provider>
+    );
   }
 }
 
