@@ -1,6 +1,7 @@
 import React from 'react';
+import { Exchange } from '../../components/exchange/Exchange';
 import './home.scss';
 
 export const Home = () => {
-  return <h1>Home Page</h1>;
+  return <Exchange />;
 };
