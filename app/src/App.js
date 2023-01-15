@@ -23,40 +23,59 @@ class App extends React.Component {
         USD: {
           name: 'Доллар США',
           flag: USD,
-          course: '999',
+          course: '',
         },
         CNY: {
           name: 'Китайский Юань',
           flag: CNY,
-          course: '999',
+          course: '',
         },
         EUR: {
           name: 'Евро',
           flag: EUR,
-          course: '999',
+          course: '',
         },
         GBP: {
           name: 'Фунт Стерлингов',
           flag: GBP,
-          course: '999',
+          course: '',
         },
         JPY: {
           name: 'Японская Йена',
           flag: JPY,
-          course: '999',
+          course: '',
         },
         RUB: {
           name: 'Российский рубль',
           flag: RUB,
-          course: '999',
+          course: '',
         },
         CHF: {
           name: 'Швейцарский франк',
           flag: CHF,
-          course: '999',
+          course: '',
         },
       },
     };
+  }
+
+  componentDidMount() {
+    fetch(`https://api.exchangerate.host/latest?base=${this.state.base}`)
+      .then(response => response.json())
+      .then(response => {
+        // console.log(response);
+        const rateArr = ['USD', 'CNY', 'EUR', 'GBP', 'JPY', 'RUB', 'CHF'];
+        const currency = { ...this.state.currency };
+
+        for (let i = 0; i < rateArr.length; i += 1) {
+          currency[rateArr[i]].course = response.rates[rateArr[i]];
+        }
+        this.setState({
+          rate: response.rates,
+          date: response.date,
+          currency,
+        });
+      });
   }
 
   render() {

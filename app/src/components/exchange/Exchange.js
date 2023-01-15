@@ -12,7 +12,9 @@ export const Exchange = () => {
       <div className="exchangeContainer">
         <div className="exchangeContent">
           <div>
-            <p>Базовая валюта: &nbsp; Дата:</p>
+            <p>
+              Базовая валюта: &nbsp;{state.base} Дата:&nbsp;{state.date}
+            </p>
           </div>
           <ul>
             {Object.keys(currency).map((item, i) => {
