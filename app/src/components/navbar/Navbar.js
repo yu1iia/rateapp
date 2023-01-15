@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
 import './navbar.scss';
 
 export const Navbar = () => {
@@ -6,16 +8,16 @@ export const Navbar = () => {
     <nav>
       <ul>
         <li>
-          <a href="/">Главная</a>
+          <NavLink to="/">Главная</NavLink>
         </li>
         <li>
-          <a href="/calc">Калькулятор</a>
+          <NavLink to="/calc">Калькулятор</NavLink>
         </li>
         <li>
-          <a href="/sample">Выборки</a>
+          <NavLink to="/sample">Выборки</NavLink>
         </li>
         <li>
-          <a href="/info">Информация</a>
+          <NavLink to="/info">Информация</NavLink>
         </li>
       </ul>
     </nav>
