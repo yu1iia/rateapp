@@ -66,11 +66,17 @@ class App extends React.Component {
   //методы для калькулятора
 
   inputValueHandler = event => {
-    this.setState({ inputValue: event.target.value });
+    this.setState({
+      inputValue: event.target.value,
+      result: null,
+    });
   };
 
   currencyValueHandler = event => {
-    this.setState({ currencyValue: event.target.value });
+    this.setState({
+      currencyValue: event.target.value,
+      result: null,
+    });
   };
 
   calculatorHandler = async value => {
