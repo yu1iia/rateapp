@@ -56,8 +56,32 @@ class App extends React.Component {
           course: '',
         },
       },
+      //calculator
+      inputValue: 100,
+      currencyValue: 'EUR',
+      result: null,
     };
   }
+
+  //методы для калькулятора
+
+  inputValueHandler = event => {
+    this.setState({ inputValue: event.target.value });
+  };
+
+  currencyValueHandler = event => {
+    this.setState({ currencyValue: event.target.value });
+  };
+
+  calculatorHandler = async value => {
+    let result;
+    await fetch(`https://api.exchangerate.host/latest?base=USD`)
+      .then(response => response.json())
+      .then(response => {
+        result = response.rates[value] * this.state.inputValue;
+      });
+    this.setState({ result });
+  };
 
   componentDidMount() {
     fetch(`https://api.exchangerate.host/latest?base=${this.state.base}`)
@@ -80,7 +104,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <RateContext.Provider value={{ state: this.state }}>
+      <RateContext.Provider
+        value={{
+          state: this.state,
+          inputValueHandler: this.inputValueHandler,
+          currencyValueHandler: this.currencyValueHandler,
+          calculatorHandler: this.calculatorHandler,
+        }}
+      >
         <Layout />
       </RateContext.Provider>
     );
