@@ -6,7 +6,13 @@ import { Button } from '../../components/button/Button';
 import './sample.scss';
 
 export const Sample = () => {
-  const { state } = useContext(RateContext);
+  const {
+    state,
+    baseHandler,
+    base2Handler,
+    sampleDateHandler,
+    dataWrite,
+  } = useContext(RateContext);
 
   return (
     <div className="sample">
@@ -14,13 +20,13 @@ export const Sample = () => {
         <div>
           <h3>
             Получить курс: &nbsp;
-            <select>
+            <select onChange={baseHandler} value={state.sample.base}>
               {Object.keys(state.currency).map((item, index) => {
                 return <option key={item}>{item}</option>;
               })}
             </select>
             &nbsp; &nbsp; к &nbsp;&nbsp;
-            <select>
+            <select onChange={base2Handler} value={state.sample.base2}>
               {Object.keys(state.currency).map((item, index) => {
                 return <option key={item}>{item}</option>;
               })}
@@ -30,9 +36,9 @@ export const Sample = () => {
         <div className="sampleHead">
           <span>
             Дата
-            <input type="date" />
+            <input type="date" onChange={sampleDateHandler} />
           </span>
-          <Button text="Получить курс" />
+          <Button text="Получить курс" click={dataWrite} arg={state.sample} />
         </div>
         <div className="sampleResult">
           <ul></ul>

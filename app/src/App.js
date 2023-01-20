@@ -3,6 +3,8 @@ import './App.scss';
 import Layout from './components/layout/Layout';
 import { RateContext } from './context/RateContext';
 
+import axios from 'axios';
+
 import CHF from './image/CHF.png';
 import CNY from './image/CNY.png';
 import EUR from './image/EUR.png';
@@ -60,6 +62,15 @@ class App extends React.Component {
       inputValue: 100,
       currencyValue: 'EUR',
       result: null,
+
+      //sample
+
+      sample: {
+        base: 'USD',
+        base2: 'EUR',
+        date: '',
+      },
+      sampleList: '',
     };
   }
 
@@ -89,6 +100,42 @@ class App extends React.Component {
     this.setState({ result });
   };
 
+  //методы для выборки
+
+  baseHandler = event => {
+    this.setState({
+      sample: { ...this.state.sample, base: event.target.value },
+    });
+  };
+  base2Handler = event => {
+    this.setState({
+      sample: { ...this.state.sample, base2: event.target.value },
+    });
+  };
+
+  sampleDateHandler = event => {
+    this.setState({
+      sample: { ...this.state.sample, date: event.target.value },
+    });
+  };
+
+  dataWrite = async sample => {
+    await axios
+      .post(
+        'https://rateapp-58a6e-default-rtdb.europe-west1.firebasedatabase.app/sample.json',
+        sample,
+      )
+      .then(response => {
+        return '';
+      });
+
+    await axios(
+      'https://rateapp-58a6e-default-rtdb.europe-west1.firebasedatabase.app/sample.json',
+    ).then(response => {
+      this.setState({ sampleList: response.data });
+    });
+  };
+
   componentDidMount() {
     fetch(`https://api.exchangerate.host/latest?base=${this.state.base}`)
       .then(response => response.json())
@@ -116,6 +163,10 @@ class App extends React.Component {
           inputValueHandler: this.inputValueHandler,
           currencyValueHandler: this.currencyValueHandler,
           calculatorHandler: this.calculatorHandler,
+          baseHandler: this.baseHandler,
+          base2Handler: this.base2Handler,
+          sampleDateHandler: this.sampleDateHandler,
+          dataWrite: this.dataWrite,
         }}
       >
         <Layout />
