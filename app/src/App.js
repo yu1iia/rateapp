@@ -60,16 +60,12 @@ class App extends React.Component {
       },
       //calculator
       inputValue: 100,
-      currencyValue: 'EUR',
+      currencyValue: 'USD',
       result: null,
 
       //sample
 
-      sample: {
-        base: 'USD',
-        base2: 'EUR',
-        date: '',
-      },
+      sample: { base: 'USD', base2: 'EUR', date: '', course: '' },
       sampleList: '',
     };
   }
@@ -119,11 +115,24 @@ class App extends React.Component {
     });
   };
 
-  dataWrite = async sample => {
+  dataWrite = async () => {
+    await fetch(
+      `https://api.exchangerate.host/${this.state.sample.date}?base=${this.state.sample.base}`,
+    )
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          sample: {
+            ...this.state.sample,
+            course: response.rates[this.state.sample.base2],
+          },
+        });
+      });
+
     await axios
       .post(
         'https://rateapp-58a6e-default-rtdb.europe-west1.firebasedatabase.app/sample.json',
-        sample,
+        this.state.sample,
       )
       .then(response => {
         return '';
@@ -134,6 +143,16 @@ class App extends React.Component {
     ).then(response => {
       this.setState({ sampleList: response.data });
     });
+  };
+
+  sampleRemove = async id => {
+    let sampleList = { ...this.state.sampleList };
+    delete sampleList[id];
+    this.setState({ sampleList });
+
+    await axios.delete(
+      `https://rateapp-58a6e-default-rtdb.europe-west1.firebasedatabase.app/sample/${id}.json`,
+    );
   };
 
   componentDidMount() {
@@ -153,6 +172,12 @@ class App extends React.Component {
           currency,
         });
       });
+
+    axios(
+      'https://rateapp-58a6e-default-rtdb.europe-west1.firebasedatabase.app/sample.json',
+    ).then(response => {
+      this.setState({ sampleList: response.data });
+    });
   }
 
   render() {
@@ -167,6 +192,7 @@ class App extends React.Component {
           base2Handler: this.base2Handler,
           sampleDateHandler: this.sampleDateHandler,
           dataWrite: this.dataWrite,
+          sampleRemove: this.sampleRemove,
         }}
       >
         <Layout />
