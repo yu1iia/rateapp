@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.scss';
 import Layout from './components/layout/Layout';
+import { Dark } from './components/dark/Dark';
+import { Modal } from './components/modal/Modal';
+
 import { RateContext } from './context/RateContext';
 
 import axios from 'axios';
@@ -195,6 +198,8 @@ class App extends React.Component {
           sampleRemove: this.sampleRemove,
         }}
       >
+        <Dark />
+        <Modal />
         <Layout />
       </RateContext.Provider>
     );

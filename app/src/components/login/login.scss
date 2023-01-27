@@ -1,0 +1,24 @@
+.modalInput {
+  margin: 1vw auto;
+  padding: 0.5vw;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  span {
+    color: #223046;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7vw;
+    line-height: 1.5vw;
+  }
+
+  input {
+    height: 1.3vw;
+  }
+}
+
+.modalBtn {
+  margin: 3vw auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
