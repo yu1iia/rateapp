@@ -1,6 +1,10 @@
 import React from 'react';
 import './input.scss';
 
+function isInvalid({ valid, touched, shouldValidate }) {
+  return !valid && touched && shouldValidate;
+}
+
 export const Input = props => {
   const cls = ['modalInput'];
   const inputType = props.type || 'text';
@@ -15,7 +19,9 @@ export const Input = props => {
         value={props.value}
         onChange={props.onChange}
       />
-      <span>{props.errorMessage}</span>
+      {isInvalid(props) ? (
+        <span>{props.errorMessage || 'Введите верное значениe'}</span>
+      ) : null}
     </div>
   );
 };

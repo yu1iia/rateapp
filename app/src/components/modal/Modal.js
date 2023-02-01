@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import './modal.scss';
 import { Login } from '../login/Login';
-import { Register } from '../register/Register';
+// import { Register } from '../register/Register';
 
 export const Modal = () => {
   return (
@@ -17,8 +17,8 @@ export const Modal = () => {
         </div>
         <hr />
       </Fragment>
-      {/* <Login /> */}
-      <Register />
+      <Login />
+      {/* <Register /> */}
     </div>
   );
 };

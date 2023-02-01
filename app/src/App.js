@@ -3,6 +3,7 @@ import './App.scss';
 import Layout from './components/layout/Layout';
 import { Dark } from './components/dark/Dark';
 import { Modal } from './components/modal/Modal';
+import { Input } from './components/input/Input';
 
 import { RateContext } from './context/RateContext';
 
@@ -21,6 +22,33 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      formControls: {
+        email: {
+          value: '',
+          type: 'email',
+          label: 'Email',
+          errorMessage: 'Введите корректный email',
+          valid: false,
+          touched: false,
+          validation: {
+            required: true,
+            email: true,
+          },
+        },
+        password: {
+          value: '',
+          type: 'password',
+          label: 'Пароль',
+          errorMessage: 'Введите корректный пароль',
+          valid: false,
+          touched: false,
+          validation: {
+            required: true,
+            minLength: 6,
+          },
+        },
+      },
+
       base: 'USD',
       rate: '',
       date: '',
@@ -72,6 +100,29 @@ class App extends React.Component {
       sampleList: '',
     };
   }
+
+  onChangeHandler = (event, controlName) => {
+    console.log(`${controlName} - ${event.target.value}`);
+  };
+
+  renderInputs = () => {
+    return Object.keys(this.state.formControls).map((controlName, i) => {
+      const control = this.state.formControls[controlName];
+      return (
+        <Input
+          key={controlName + i}
+          type={control.type}
+          value={control.value}
+          valid={control.valid}
+          touched={control.touched}
+          label={control.label}
+          errorMessage={control.errorMessage}
+          shouldValidate={true}
+          onChange={event => this.onChangeHandler(event, controlName)}
+        />
+      );
+    });
+  };
 
   //методы для калькулятора
 
@@ -196,6 +247,7 @@ class App extends React.Component {
           sampleDateHandler: this.sampleDateHandler,
           dataWrite: this.dataWrite,
           sampleRemove: this.sampleRemove,
+          renderInputs: this.renderInputs,
         }}
       >
         <Dark />
