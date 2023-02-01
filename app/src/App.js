@@ -17,6 +17,11 @@ import JPY from './image/JPY.png';
 import RUB from './image/RUB.png';
 import USD from './image/USD.png';
 
+const validateEmail = email => {
+  let re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -101,8 +106,34 @@ class App extends React.Component {
     };
   }
 
+  validateControl(value, validation) {
+    if (!validation) {
+      return true;
+    }
+    let isValid = true;
+    if (validation.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+    if (validation.email) {
+      isValid = validateEmail(value) && isValid;
+    }
+    if (validation.minLength) {
+      isValid = value.length >= validation.minLength && isValid;
+    }
+    return isValid;
+  }
+
   onChangeHandler = (event, controlName) => {
-    console.log(`${controlName} - ${event.target.value}`);
+    const formControls = { ...this.state.formControls };
+
+    const control = { ...formControls[controlName] };
+    control.value = event.target.value;
+    control.touched = true;
+    control.valid = this.validateControl(control.value, control.validation);
+
+    formControls[controlName] = control;
+
+    this.setState({ formControls });
   };
 
   renderInputs = () => {
