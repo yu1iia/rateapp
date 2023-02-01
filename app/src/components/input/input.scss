@@ -1,0 +1,27 @@
+.modalInput {
+  margin: 1vw auto;
+  padding: 0.5vw;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  label {
+    color: #223046;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7vw;
+    line-height: 1.5vw;
+  }
+
+  input {
+    height: 1.3vw;
+  }
+
+  span {
+    color: #f01f30;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+.inputInvalid label {
+  color: #f01f30;
+}
