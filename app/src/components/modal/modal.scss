@@ -12,7 +12,7 @@
   right: 0;
   bottom: 0;
   border-radius: 5px;
-  // display: none;
+  display: none;
 }
 
 .modalHead {
@@ -44,4 +44,8 @@
   i {
     font-size: 1vw;
   }
+}
+
+.modalShow {
+  display: block;
 }
