@@ -6,13 +6,17 @@ import { Button } from '../button/Button';
 import { RateContext } from '../../context/RateContext';
 
 export const Login = () => {
-  const { renderInputs } = useContext(RateContext);
+  const { renderInputs, state, loginHandler } = useContext(RateContext);
 
   return (
     <Fragment>
       <div className="modalForm">{renderInputs()}</div>
       <div className="modalBtn">
-        <Button text="Войти" />
+        <Button
+          text="Войти"
+          disabled={!state.isFormValid}
+          click={loginHandler}
+        />
       </div>
     </Fragment>
   );
