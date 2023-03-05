@@ -27,6 +27,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      auth: false,
+      error: '',
+
       formControls: {
         email: {
           value: '',
@@ -121,9 +124,20 @@ class App extends React.Component {
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCff63IdokKKEZqcb5lBk-alZFfPn6fkYQ',
         authData,
       );
-      console.log(response);
+      if (response.data.idToken) {
+        const formControls = { ...this.state.formControls };
+        formControls.email.value = '';
+        formControls.password.value = '';
+        this.setState({
+          auth: true,
+          showModal: false,
+          error: '',
+          formControls,
+        });
+      }
     } catch (e) {
       console.log(e);
+      this.setState({ error: 'Ошибка' });
     }
   };
 
@@ -139,9 +153,21 @@ class App extends React.Component {
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyCff63IdokKKEZqcb5lBk-alZFfPn6fkYQ',
         authData,
       );
-      console.log(response);
+      if (response.data.idToken) {
+        const formControls = { ...this.state.formControls };
+        formControls.email.value = '';
+        formControls.password.value = '';
+        this.setState({
+          auth: true,
+          showModal: false,
+          error: '',
+          formControls,
+        });
+      }
+      // console.log(response.data.idToken);
     } catch (e) {
       console.log(e);
+      this.setState({ error: 'Ошибка' });
     }
   };
   //show modal window
